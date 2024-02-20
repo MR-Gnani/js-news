@@ -1,0 +1,85 @@
+.head-line{
+    margin-top: 1em;
+    display: flex;
+    justify-content: center;
+}
+
+.head-line svg{
+    width: 430px;
+}
+
+.menu {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1em;
+    border-top: 1px solid lightgray;
+    border-bottom: 4px double black;
+}
+
+.menu button {
+    border: none;
+    background: none;
+    margin: 5px;
+}
+
+.menu button:hover{
+    background-color: beige;
+}
+
+.news-box {
+    margin-top: 1em;
+    width: 333px;
+    height: 300px;
+    border: 1px solid lightgray;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.news-box .image-box{
+    width: 100%;
+    height: 60%;
+}
+
+.news-box .image-box img{
+    width: 100%;
+    height: 100%;
+}
+
+.news-box .contents-box{
+    width: 100%;
+    height: 40%;
+    padding: 0.5em;
+}
+
+.news-box .title-box{
+    height: 33%;
+}
+
+.news-box .caption-box{
+    display: block;
+    width: 100%;
+    height: 47%;
+    overflow: hidden;
+}
+
+.news-box .caption-box p{
+    font-size: 15px;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.news-box .other-box{
+    font-size: 13px;
+    display: flex;
+    justify-content: space-between;
+    height: 20%;
+}
+
+.news-box .other-box .date {
+}
