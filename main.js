@@ -10,8 +10,8 @@ menu.each((index, element) => {
 console.log(menu);
 const getLatestNews = async() => {
     const url = new URL(
-        // `https://nani-news.netlify.app/top-headlines?country=kr&pageSize=20`
-        `https://newsapi.org/v2/top-headlines?country=kr&apiKey=${API_KEY}`
+        `https://nani-news.netlify.app/top-headlines?country=kr&pageSize=20`
+        //`https://newsapi.org/v2/top-headlines?country=kr&apiKey=${API_KEY}`
     );
     const response = await fetch(url);
     const data = await response.json();
@@ -19,6 +19,7 @@ const getLatestNews = async() => {
     newsList = data.articles;
     render();
     
+    // 이렇게 따로 빼도 안됨. 새로고침 해야 로딩됨ㅠㅠ. 수정예정
     $(".news-box .image-box img").each((index, element) => {
         const imageUrl = $(element).attr("src");
         if (!validateImageUrl(imageUrl)) {
@@ -31,9 +32,9 @@ const getNewsByCategory = async (event)=>{
     const category = $(event.target).text().toLowerCase();
     console.log("category", category);
     const url = new URL(
-     // `https://nani-news.netlify.app/top-headlines?country=kr&pageSize=20`
-        `https://newsapi.org/v2/top-headlines?category=${category}&country=kr&apiKey=${API_KEY}`
-    );
+      `https://nani-news.netlify.app/top-headlines?category=${category}&country=kr&pageSize=20`
+     // `https://newsapi.org/v2/top-headlines?category=${category}&country=kr&apiKey=${API_KEY}`
+    ); 
     const response = await fetch(url);
     const data = await response.json();
     console.log("d", data);
