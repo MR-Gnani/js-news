@@ -14,6 +14,7 @@ const getLatestNews = async() => {
 
 // imageUrl 유효성 검사
 const validateImageUrl = (imageUrl) => {
+    
     // image객체 생성. 자바스크립트가 가지고 있는 인스턴스
     const image = new Image();
     // src속성 할당 (render함수에서 가져온 url)
@@ -29,12 +30,12 @@ const render = ()=>{
         (news)=>{
             const imageUrl = news.urlToImage;
             // 유효성 검사 결과값 담기
-            const validatedImage = validateImageUrl(imageUrl);
-
+            // const validatedImage = validateImageUrl(imageUrl);
+            
             // 이미지에서 유효한 값이 아니라면 noimage 
     return` <div class="news-box">
         <div class="image-box">
-            <img src="${validatedImage ? imageUrl : 'images/noimage.png'}"/>
+            <img src="${imageUrl ? imageUrl : 'images/noimage.png'}"/>
         </div>
         <div class="contents-box">
             <div class="title-box">
