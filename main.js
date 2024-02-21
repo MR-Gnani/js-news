@@ -20,12 +20,12 @@ const getLatestNews = async() => {
     render();
     
     // 이렇게 따로 빼도 안됨. 새로고침 해야 로딩됨ㅠㅠ. 수정예정
-    $(".news-box .image-box img").each((index, element) => {
-        const imageUrl = $(element).attr("src");
-        if (!validateImageUrl(imageUrl)) {
-            $(element).attr("src", "images/noimage.png");
-        }
-    });
+    // $(".news-box .image-box img").each((index, element) => {
+    //    const imageUrl = $(element).attr("src");
+    //    if (!validateImageUrl(imageUrl)) {
+    //        $(element).attr("src", "images/noimage.png");
+    //    }
+    // });
 }
 
 const getNewsByCategory = async (event)=>{
@@ -42,6 +42,7 @@ const getNewsByCategory = async (event)=>{
     render();
 } 
 
+// 수정중 
 // imageUrl 유효성 검사
 const validateImageUrl = (imageUrl) => {
     // image객체 생성. 자바스크립트가 가지고 있는 인스턴스
@@ -52,11 +53,13 @@ const validateImageUrl = (imageUrl) => {
   };
 
 const render = ()=>{
+    $("#news-board").empty();
+
     const newsInfo = newsList.map(
         (news)=>
   ` <div class="news-box">
         <div class="image-box">
-            <img src="${news.urlToImage}"/>
+            <img src="${news.urlToImage ? news.urlToImage : 'images/noimage.png'}"/>
         </div>
         <div class="contents-box">
             <div class="title-box">
