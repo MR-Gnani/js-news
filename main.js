@@ -17,18 +17,18 @@ const render = ()=>{
         (news)=>
     ` <div class="news-box">
         <div class="image-box">
-            <img src="${news.urlToImage}"/>
+            <img src="${news.urlToImage ? news.urlToImage : 'images/noimage.png'}"/>
         </div>
         <div class="contents-box">
             <div class="title-box">
                 <h5>${news.title}</h5>
             </div>
             <div class="caption-box">
-                <p>${news.description}</p>
+                <p>${news.description ? news.description : '내용없음'}</p>
             </div>
             <div class="other-box">
-                <div class="source">${news.author ? news.author : ''} ${news.source.name}</div>
-                <div class="date">${news.publishedAt}</div>
+                <div class="source">${news.author ? news.author : ''} ${news.source.name ? news.source.name : 'no source'}</div>
+                <div class="date">${moment(news.publishedAt).startOf('hour').fromNow()}</div>
             </div>
         </div>
     </div>`
