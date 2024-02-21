@@ -32,7 +32,7 @@ const getNewsByCategory = async (event)=>{
     const category = $(event.target).text().toLowerCase();
     console.log("category", category);
     const url = new URL(
-      `https://nani-news.netlify.app/top-headlines?category=${category}&country=kr&pageSize=20`
+      `https://nani-news.netlify.app/top-headlines?category=${category}`
      // `https://newsapi.org/v2/top-headlines?category=${category}&country=kr&apiKey=${API_KEY}`
     ); 
     const response = await fetch(url);
