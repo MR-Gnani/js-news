@@ -1,41 +1,61 @@
 const API_KEY = `2106e64e536a4ce9aede8c65a5a2a4ee`;
 let newsList = [];
+const menu = $(`#menu button`);
+
+// 버튼 클릭 이벤트
+menu.each((index, element) => {
+    $(element).on("click", (event) => getNewsByCategory(event));
+});
+
+console.log(menu);
 const getLatestNews = async() => {
     const url = new URL(
-        `https://nani-news.netlify.app/top-headlines?country=kr&pageSize=20`
+        // `https://nani-news.netlify.app/top-headlines?country=kr&pageSize=20`
+        `https://newsapi.org/v2/top-headlines?country=kr&apiKey=${API_KEY}`
     );
     const response = await fetch(url);
     const data = await response.json();
 
     newsList = data.articles;
     render();
-    console.log("info", newsList);     
+    
+    $(".news-box .image-box img").each((index, element) => {
+        const imageUrl = $(element).attr("src");
+        if (!validateImageUrl(imageUrl)) {
+            $(element).attr("src", "images/noimage.png");
+        }
+    });
 }
+
+const getNewsByCategory = async (event)=>{
+    const category = $(event.target).text().toLowerCase();
+    console.log("category", category);
+    const url = new URL(
+     // `https://nani-news.netlify.app/top-headlines?country=kr&pageSize=20`
+        `https://newsapi.org/v2/top-headlines?category=${category}&country=kr&apiKey=${API_KEY}`
+    );
+    const response = await fetch(url);
+    const data = await response.json();
+    console.log("d", data);
+    newsList = data.articles;
+    render();
+} 
 
 // imageUrl 유효성 검사
 const validateImageUrl = (imageUrl) => {
-    
     // image객체 생성. 자바스크립트가 가지고 있는 인스턴스
     const image = new Image();
     // src속성 할당 (render함수에서 가져온 url)
     image.src = imageUrl;
-    // 1. src속성이 할당되었기에 image.complete로 이미지 로딩되었는지 체크
-    // 2. 이미지의 가로 세로폭이 0보다 큰지 체크 (크면 이미지가 로딩되었다고 판단)
-    // 둘다 만족하면 true, 하나라도 만족하지 않으면 false값 반환
-    return image.complete && (image.width + image.height) > 0;
+    return image.complete;
   };
 
 const render = ()=>{
     const newsInfo = newsList.map(
-        (news)=>{
-            const imageUrl = news.urlToImage;
-            // 유효성 검사 결과값 담기
-            // const validatedImage = validateImageUrl(imageUrl);
-            
-            // 이미지에서 유효한 값이 아니라면 noimage 
-    return` <div class="news-box">
+        (news)=>
+  ` <div class="news-box">
         <div class="image-box">
-            <img src="${imageUrl ? imageUrl : 'images/noimage.png'}"/>
+            <img src="${news.urlToImage}"/>
         </div>
         <div class="contents-box">
             <div class="title-box">
@@ -50,7 +70,7 @@ const render = ()=>{
             </div>
         </div>
     </div>`
-        });
+        );
     $(`#news-board`).append(newsInfo);
 }
 
