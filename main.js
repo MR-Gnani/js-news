@@ -1,13 +1,15 @@
 const API_KEY = `2106e64e536a4ce9aede8c65a5a2a4ee`;
 let newsList = [];
-const menu = $(`#menu button`);
+const allButtons = $(`#menu button, #menu-list button`);
 
-// 버튼 클릭 이벤트
-menu.each((index, element) => {
-    $(element).on("click", (event) => getNewsByCategory(event));
+// 모든 버튼 클릭 이벤트
+allButtons.each((index, element) => {
+    $(element).on("click", (event) => {
+        getNewsByCategory(event);
+        $(`#sideNav`).css('width', '0');
+    });
 });
 
-console.log(menu);
 const getLatestNews = async() => {
     const url = new URL(
         `https://nani-news.netlify.app/top-headlines?country=kr&pageSize=20`
@@ -79,3 +81,8 @@ const render = ()=>{
 }
 
 getLatestNews();
+
+$(`#searchIcon`).on("click", ()=> $(`#input-area`).toggle());
+$(`#menuIcon`).on("click", ()=>$(`#sideNav`).css('width', '220px'));
+$(`.closeBtn`).on("click", ()=>$(`#sideNav`).css('width', '0'));
+

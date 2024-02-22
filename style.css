@@ -1,3 +1,97 @@
+.sideMenu {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(137, 137, 137);
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+  }
+
+  .side-menu-list button {
+    color: white;
+    font-size: 20px;
+    margin: 5px;
+    border: none;
+    background: none;
+    width: 120px;
+  }
+  
+  .sideMenu .closeBtn {
+    position: absolute;
+    top: 0;
+    right: 8px;
+    font-size: 30px;
+    margin-left: 50px;
+    color: white;
+    border: none;
+    background: none;
+  }
+  
+  .side-menu-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .side-menu-list button:hover {
+    background-color: rgb(53, 53, 53);
+    border-radius: 3px;
+  }
+#menu-list{
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+#menu-list button {
+    width: 300px;
+    height: 40px;
+}
+
+#input-area{
+    display: none;
+    width: 100%;
+    font-size: 15px;
+    margin-left: 1em;
+}
+
+#search-input{
+    width: 300px;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.search-button{
+    margin-left: 0.25em;
+    color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: rgb(60, 58, 58);
+}
+
+.mobile-bar{
+    display: flex;
+    margin-top: 1em;
+    margin-left: 0.25em;
+    width: 100%;
+    height: 30px;
+    font-size: 23px;
+}
+
+#menuIcon {
+    display: none;
+    cursor: pointer;
+}
+
+#searchIcon {
+    cursor: pointer;
+}
+
 .head-line{
     margin-top: 1em;
     display: flex;
@@ -37,6 +131,16 @@
     .grid-gallery {
         grid-template-columns: repeat(1, 1fr);
     }
+    .menu {
+        display: none;
+    }
+    #menuIcon{
+        display: inline;
+        margin-right: 0.5em;
+    }
+    #menu-list{
+        width: 100%;
+    }
 }
 
 /* 중간 화면 크기일 때(2개씩) */
@@ -55,7 +159,7 @@
 
 .news-box {
     margin-top: 1em;
-    width: 360px;
+    width: 100%;
     height: 345px;
     border: 1px solid lightgray;
     border-radius: 15px;
