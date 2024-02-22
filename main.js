@@ -1,6 +1,21 @@
 const API_KEY = `2106e64e536a4ce9aede8c65a5a2a4ee`;
 let newsList = [];
 const allButtons = $(`#menu button, #menu-list button`);
+const sBtn = $(`#searchButton`);
+
+// Search 검색 버튼
+sBtn.on("click",()=>{
+    getNewsByKeyword()
+    $(`#search-input`).val("")
+});
+
+// Enter키 설정
+$('#search-input').keypress(function(e) { 
+    if (e.which === 13) { 
+        getNewsByKeyword();
+        $(`#search-input`).val("");
+    }
+});
 
 // 모든 버튼 클릭 이벤트
 allButtons.each((index, element) => {
@@ -10,6 +25,7 @@ allButtons.each((index, element) => {
     });
 });
 
+// 최신 뉴스 가져오기
 const getLatestNews = async() => {
     const url = new URL(
         `https://nani-news.netlify.app/top-headlines?country=kr&pageSize=20`
@@ -32,17 +48,28 @@ const getLatestNews = async() => {
 
 const getNewsByCategory = async (event)=>{
     const category = $(event.target).text().toLowerCase();
-    console.log("category", category);
     const url = new URL(
       `https://nani-news.netlify.app/top-headlines?category=${category}`
      // `https://newsapi.org/v2/top-headlines?category=${category}&country=kr&apiKey=${API_KEY}`
     ); 
     const response = await fetch(url);
     const data = await response.json();
-    console.log("d", data);
     newsList = data.articles;
     render();
 } 
+
+const getNewsByKeyword = async () => {
+    const keyword = $(`#search-input`).val();
+    const url = new URL(
+        `https://nani-news.netlify.app/top-headlines?q=${keyword}`
+       // `https://newsapi.org/v2/top-headlines?category=${category}&country=kr&apiKey=${API_KEY}`
+    ); 
+    const response = await fetch(url);
+    const data = await response.json();
+    console.log("d", data);
+    newsList = data.articles;
+    render();
+}
 
 // 수정중 
 // imageUrl 유효성 검사
