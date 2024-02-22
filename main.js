@@ -2,6 +2,8 @@ const API_KEY = `2106e64e536a4ce9aede8c65a5a2a4ee`;
 let newsList = [];
 const allButtons = $(`#menu button, #menu-list button`);
 const sBtn = $(`#searchButton`);
+let url = new URL(`https://nani-news.netlify.app/top-headlines?country=kr&pageSize=20`)
+//`https://newsapi.org/v2/top-headlines?country=kr&apiKey=${API_KEY}`
 
 // Search 검색 버튼
 sBtn.on("click",()=>{
@@ -25,18 +27,11 @@ allButtons.each((index, element) => {
     });
 });
 
-// 최신 뉴스 가져오기
-const getLatestNews = async() => {
-    const url = new URL(
-        `https://nani-news.netlify.app/top-headlines?country=kr&pageSize=20`
-        //`https://newsapi.org/v2/top-headlines?country=kr&apiKey=${API_KEY}`
-    );
+const getNews = async() => {
     const response = await fetch(url);
     const data = await response.json();
-
     newsList = data.articles;
     render();
-    
     // 이렇게 따로 빼도 안됨. 새로고침 해야 로딩됨ㅠㅠ. 수정예정
     // $(".news-box .image-box img").each((index, element) => {
     //    const imageUrl = $(element).attr("src");
@@ -46,29 +41,31 @@ const getLatestNews = async() => {
     // });
 }
 
+// 최신 뉴스 가져오기
+const getLatestNews = async() => {
+    url = new URL(
+        `https://nani-news.netlify.app/top-headlines?country=kr&pageSize=20`
+        //`https://newsapi.org/v2/top-headlines?country=kr&apiKey=${API_KEY}`
+    );
+    getNews();  
+}
+
 const getNewsByCategory = async (event)=>{
     const category = $(event.target).text().toLowerCase();
-    const url = new URL(
+    url = new URL(
       `https://nani-news.netlify.app/top-headlines?category=${category}`
      // `https://newsapi.org/v2/top-headlines?category=${category}&country=kr&apiKey=${API_KEY}`
     ); 
-    const response = await fetch(url);
-    const data = await response.json();
-    newsList = data.articles;
-    render();
+    getNews();
 } 
 
 const getNewsByKeyword = async () => {
     const keyword = $(`#search-input`).val();
-    const url = new URL(
+    url = new URL(
         `https://nani-news.netlify.app/top-headlines?q=${keyword}`
        // `https://newsapi.org/v2/top-headlines?category=${category}&country=kr&apiKey=${API_KEY}`
     ); 
-    const response = await fetch(url);
-    const data = await response.json();
-    console.log("d", data);
-    newsList = data.articles;
-    render();
+    getNews();
 }
 
 // 수정중 
