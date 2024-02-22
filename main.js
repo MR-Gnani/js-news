@@ -28,18 +28,22 @@ allButtons.each((index, element) => {
 });
 
 const getNews = async() => {
+    try {
     const response = await fetch(url);
     const data = await response.json();
-    newsList = data.articles;
-    render();
-    // 이렇게 따로 빼도 안됨. 새로고침 해야 로딩됨ㅠㅠ. 수정예정
-    // $(".news-box .image-box img").each((index, element) => {
-    //    const imageUrl = $(element).attr("src");
-    //    if (!validateImageUrl(imageUrl)) {
-    //        $(element).attr("src", "images/noimage.png");
-    //    }
-    // });
-}
+        if(response.status === 200){
+            if(data.articles.length === 0){
+                throw new Error("No result for this search")
+            }
+            newsList = data.articles;
+            render();
+        }else{
+            throw new Error(data.message)
+        }
+    } catch (error) {
+        errorRender(error.message)
+    } 
+};
 
 // 최신 뉴스 가져오기
 const getLatestNews = async() => {
@@ -104,9 +108,27 @@ const render = ()=>{
     $(`#news-board`).append(newsInfo);
 }
 
+const errorRender = (errorMessage)=>{
+    $("#news-board").empty();
+
+    const errorHTML=
+   `<div class="alert alert-danger">
+        <strong> Error! </strong>
+        <a href="#" class="alert-link">${errorMessage}</a>.
+    </div>`
+  $(`#news-board`).append(errorHTML);
+}
+
 getLatestNews();
 
 $(`#searchIcon`).on("click", ()=> $(`#input-area`).toggle());
 $(`#menuIcon`).on("click", ()=>$(`#sideNav`).css('width', '220px'));
 $(`.closeBtn`).on("click", ()=>$(`#sideNav`).css('width', '0'));
 
+// 이렇게 따로 빼도 안됨. 새로고침 해야 로딩됨ㅠㅠ. 수정예정
+    // $(".news-box .image-box img").each((index, element) => {
+    //    const imageUrl = $(element).attr("src");
+    //    if (!validateImageUrl(imageUrl)) {
+    //        $(element).attr("src", "images/noimage.png");
+    //    }
+    // });
