@@ -193,10 +193,14 @@ const pageRender = ()=>{
                    <li class="page-item ${page===1 ? "disabled" : ""}" onclick="moveToPage(${page-5>=0 ? page-5 : 1})"><a class="page-link" href="#" aria-label="Previous">
                         <span aria-hidden="true">&lt;</span></a></li>`;
    
-   for(let i=firstPage; i<=lastPage; i++){
-    pageHTML +=`<li class="page-item ${i===page ? "active" : ""}" id="pageNum-${i}" onclick="moveToPage(${i})">
-                <a class="page-link" href="#">${i}</a>
-                </li>`;
+                        
+    // 최소 5개 페이지를 표시
+    const startPage = Math.max(1, Math.min(page - 2, totalPages - 4));
+    const endPage = Math.min(totalPages, startPage + 4);
+    for (let i = startPage; i <= endPage; i++) {
+        pageHTML += `<li class="page-item ${i == page ? "active" : ""}" id="pageNum-${i}" onclick="moveToPage(${i})">
+                        <a class="page-link" href="#">${i}</a>
+                    </li>`;
     }
 
     pageHTML += `<li class="page-item ${page===totalPages ? "disabled" : ""}" onclick="moveToPage(${page+5>=totalPages ? totalPages : page+5})"><a class="page-link" href="#" aria-label="Next">
@@ -211,6 +215,22 @@ const moveToPage = (pageNum)=>{
     page=pageNum;
     getNews();
 }
+
+// page 이동버튼
+$(`#pageInputBtn`).on("click",()=>{
+    const pNum = $(`#pageInput`).val();
+    moveToPage(pNum);
+    $(`#pageInput`).val("")
+});
+
+// Enter키 설정
+$('#pageInput').keypress(function(e) { 
+    if (e.which === 13) { 
+        const pNum = $(`#pageInput`).val();
+        moveToPage(pNum);
+        $(`#pageInput`).val("");
+    }
+});
 
 getLatestNews();
 

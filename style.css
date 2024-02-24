@@ -241,9 +241,21 @@
 }
 
 .center {
-    margin-top: 1em;
+    margin-top: 0.5em;
     text-align: center;
     justify-content: center;
+}
+
+.pageInputBtn{
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.page-input input{
+    width: 70px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
 }
 
 .details{
@@ -284,3 +296,4 @@
     display: flex;
     justify-content: space-between;
 }
+
