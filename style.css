@@ -252,6 +252,10 @@
     background-color: white;
 }
 
+.hide {
+    display: none;
+}
+
 .page-input input{
     width: 70px;
     border: 1px solid lightgray;

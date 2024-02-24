@@ -115,7 +115,7 @@ const validateImageUrl = (imageUrl) => {
 
 const render = ()=>{
     $("#news-board").empty();
-
+    $(`#pInput`).removeClass("hide");
     const newsInfo = newsList.map(
         (news)=>
   ` <div class="news-box" id=news-"${news.newsId}" onclick="getNewsDetails(${news.newsId})">
@@ -140,8 +140,8 @@ const render = ()=>{
 }
 
 const detailsRender = (data)=>{
-    console.log(data)
-    $("#news-board").empty();
+    $(`#pInput`).addClass("hide");
+    $(`#news-board`).empty();
     $(`.pagination`).empty();
     // data.author
     // data.publishedAt
