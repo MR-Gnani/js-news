@@ -142,6 +142,9 @@
     #menu-list{
         width: 100%;
     }
+    #search-input{
+        width: 200px;
+    }
 }
 
 /* 중간 화면 크기일 때(2개씩) */
